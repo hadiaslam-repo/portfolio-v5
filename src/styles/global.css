@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'BDO Grotesk';
+  src: url('/fonts/BDOGrotesk-Regular.woff2') format('woff2');
+  font-weight: 300 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BDO Grotesk';
+  src: url('/fonts/BDOGrotesk-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BDO Grotesk';
+  src: url('/fonts/BDOGrotesk-DemiBold.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Colour */
+  --color-canvas: #1c1c1c;
+  --color-surface: #fafafa;
+  --color-text: #fff;
+  --color-text-muted: rgb(255 255 255 / 70%);
+  --color-text-subtle: rgb(255 255 255 / 50%);
+  --color-ink: #000;
+  --color-ink-muted: rgb(0 0 0 / 70%);
+  --color-border: #fff;
+  --color-border-subtle: rgb(255 255 255 / 15%);
+  --color-accent-blue: #2d40ea;
+  --color-accent-purple: #7947ee;
+  --color-accent-lilac: #cdc5ff;
+  --color-accent-lime: #d0e957;
+  --color-accent-orange: #fa7a4d;
+  --color-accent-cyan: #80d6f0;
+  --color-accent-green: #259b4c;
+  --color-accent-pink: #dd23bb;
+  --color-error: #f44353;
+
+  /* Typography */
+  --font-sans: 'BDO Grotesk', Arial, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --leading-tight: 1;
+  --leading-heading: 1.1;
+  --leading-subheading: 1.2;
+  --leading-body: 1.5;
+  --tracking-tight: -0.03em;
+  --tracking-normal: 0;
+  --type-display: clamp(2.5rem, 1.25rem + 4vw, 5rem);
+  --type-h1: clamp(2.5rem, 1.93rem + 1.79vw, 3.5rem);
+  --type-h2: clamp(2rem, 1.43rem + 1.79vw, 3rem);
+  --type-h3: clamp(1.5rem, 1.21rem + 0.89vw, 2rem);
+  --type-h4: clamp(1.25rem, 1.11rem + 0.45vw, 1.5rem);
+  --type-body-lg: clamp(1.125rem, 1.05rem + 0.22vw, 1.25rem);
+  --type-body: 1rem;
+  --type-small: 0.875rem;
+  --type-caption: 0.75rem;
+
+  /* Layout and space */
+  --viewport-min: 20rem;
+  --viewport-max: 90rem;
+  --container-sm: 48rem;
+  --container-md: 64rem;
+  --container-lg: 150rem;
+  --gutter: clamp(1rem, 0.57rem + 1.43vw, 2.5rem);
+  --section-space-sm: clamp(2rem, 1.57rem + 1.43vw, 3.5rem);
+  --section-space-md: clamp(2.5rem, 1.79rem + 2.38vw, 5rem);
+  --section-space-lg: clamp(4rem, 3rem + 3.33vw, 7.5rem);
+  --content-gap: clamp(1.25rem, 0.89rem + 1.19vw, 2.5rem);
+  --nav-height: clamp(4rem, 3.57rem + 1.43vw, 5.5rem);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --duration-fast: 180ms;
+  --duration-normal: 300ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-width: 20rem;
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, picture, svg, video, canvas { display: block; max-width: 100%; }
+button, input, textarea, select { font: inherit; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { color: var(--color-text); font-weight: var(--font-weight-medium); text-wrap: balance; }
+h1 { font-size: var(--type-h1); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+h2 { font-size: var(--type-h2); line-height: var(--leading-heading); letter-spacing: -0.01em; }
+h3 { font-size: var(--type-h3); line-height: var(--leading-subheading); letter-spacing: -0.01em; }
+h4 { font-size: var(--type-h4); line-height: var(--leading-subheading); letter-spacing: -0.01em; }
+:focus-visible { outline: 2px solid var(--color-accent-lime); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }

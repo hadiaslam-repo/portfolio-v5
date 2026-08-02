@@ -1,0 +1,91 @@
+X [ERROR] Cannot read directory "../../..": Access is denied.
+
+X [ERROR] Could not resolve "./AXObjectElementMap"
+
+    node_modules/axobject-query/lib/index.js:7:57:
+      7 │ ...ementMap = _interopRequireDefault(require("./AXObjectElementMap"));
+        ╵                                              ~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./ariaPropsMap"
+
+    node_modules/aria-query/lib/index.js:7:51:
+      7 │ var _ariaPropsMap = _interopRequireDefault(require("./ariaPropsMap"));
+        ╵                                                    ~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./AXObjectRoleMap"
+
+    node_modules/axobject-query/lib/index.js:8:54:
+      8 │ ...jectRoleMap = _interopRequireDefault(require("./AXObjectRoleMap"));
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./domMap"
+
+    node_modules/aria-query/lib/index.js:8:45:
+      8 │ var _domMap = _interopRequireDefault(require("./domMap"));
+        ╵                                              ~~~~~~~~~~
+
+X [ERROR] Could not resolve "./rolesMap"
+
+    node_modules/aria-query/lib/index.js:9:47:
+      9 │ var _rolesMap = _interopRequireDefault(require("./rolesMap"));
+        ╵                                                ~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./AXObjectsMap"
+
+    node_modules/axobject-query/lib/index.js:9:51:
+      9 │ var _AXObjectsMap = _interopRequireDefault(require("./AXObjectsMap"));
+        ╵                                                    ~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./elementRoleMap"
+
+    node_modules/aria-query/lib/index.js:10:53:
+      10 │ ...mentRoleMap = _interopRequireDefault(require("./elementRoleMap"));
+         ╵                                                 ~~~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./elementAXObjectMap"
+
+    node_modules/axobject-query/lib/index.js:10:57:
+      10 │ ...jectMap = _interopRequireDefault(require("./elementAXObjectMap"));
+         ╵                                             ~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./roleElementMap"
+
+    node_modules/aria-query/lib/index.js:11:53:
+      11 │ ...eElementMap = _interopRequireDefault(require("./roleElementMap"));
+         ╵                                                 ~~~~~~~~~~~~~~~~~~
+
+[31m[1m18:37:32[22m [ERROR][39m [31m[UnhandledRejection][39m Astro detected an unhandled rejection. Here's the stack trace:
+Error: Build failed with 10 errors:
+error: Cannot read directory "../../..": Access is denied.
+node_modules/aria-query/lib/index.js:7:51: ERROR: Could not resolve "./ariaPropsMap"
+node_modules/aria-query/lib/index.js:8:45: ERROR: Could not resolve "./domMap"
+node_modules/aria-query/lib/index.js:9:47: ERROR: Could not resolve "./rolesMap"
+node_modules/aria-query/lib/index.js:10:53: ERROR: Could not resolve "./elementRoleMap"
+...
+    at failureErrorWithLog (C:\Users\DELL\Desktop\hadiaslam-portfolio-v5\astro-build\node_modules\vite\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\DELL\Desktop\hadiaslam-portfolio-v5\astro-build\node_modules\vite\node_modules\esbuild\lib\main.js:926:25
+    at C:\Users\DELL\Desktop\hadiaslam-portfolio-v5\astro-build\node_modules\vite\node_modules\esbuild\lib\main.js:1345:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+  [1mHint:[22m
+[33m    Make sure your promises all have an `await` or a `.catch()` handler.[39m
+  [1mError reference:[22m
+    [36m[4mhttps://docs.astro.build/en/reference/errors/unhandled-rejection/[24m[39m
+  [1mStack trace:[22m
+[2m    at C:\Users\DELL\Desktop\hadiaslam-portfolio-v5\astro-build\node_modules\aria-query\lib\index.js: ERROR: Could not resolve ".\ariaPropsMap":7:51
+    [...] See full stack trace in the browser, or rerun with --verbose.[22m
+[31m[1m18:55:18[22m [ERROR][39m Could not import `/src/components/Navbar.astro`.
+  [1mHint:[22m
+[33m    This is often caused by a typo in the import path. Please make sure the file exists.[39m
+  [1mError reference:[22m
+    [36m[4mhttps://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/[24m[39m
+  [1mStack trace:[22m
+[2m    at loadAndTransform (file:///C:/Users/DELL/Desktop/hadiaslam-portfolio-v5/astro-build/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35835:17)
+    [...] See full stack trace in the browser, or rerun with --verbose.[22m
+[31m[1m18:55:18[22m [ERROR][39m Could not import `/src/components/Navbar.astro`.
+  [1mHint:[22m
+[33m    This is often caused by a typo in the import path. Please make sure the file exists.[39m
+  [1mError reference:[22m
+    [36m[4mhttps://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/[24m[39m
+  [1mStack trace:[22m
+[2m    at loadAndTransform (file:///C:/Users/DELL/Desktop/hadiaslam-portfolio-v5/astro-build/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35835:17)
+    [...] See full stack trace in the browser, or rerun with --verbose.[22m

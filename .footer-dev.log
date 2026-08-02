@@ -1,0 +1,134 @@
+
+> hadia-islam-portfolio@0.1.0 dev
+> astro dev --host 127.0.0.1 --port 4325
+
+[2m19:06:52[22m [34m[types][39m Generated [2m2ms[22m
+[2m19:06:52[22m [34m[content][39m Syncing content
+[2m19:06:52[22m [34m[content][39m Astro config changed
+[2m19:06:52[22m [34m[content][39m Clearing content store
+[2m19:06:52[22m [34m[content][39m Synced content
+[2m19:06:52[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+
+[42m[1m astro [22m[49m [32mv5.18.2[39m [2mready in[22m 391 [2mms[22m
+
+[2m┃[22m Local    [36mhttp://127.0.0.1:4325/[39m
+
+[2m19:06:52[22m [32mwatching for file changes...[39m
+
+[43m[30m update [39m[49m [33m▶ New version of Astro available: 7.1.6[39m
+  Run [36mnpx @astrojs/upgrade[39m to update
+
+[2m19:06:53[22m [34m[200][39m / [2m29ms[22m
+[2m19:07:01[22m [34m[200][39m / [2m6ms[22m
+[2m19:07:38[22m [34m[200][39m / [2m10ms[22m
+[2m19:11:26[22m [34m[watch][39m src/components/Footer.astro
+[2m19:11:26[22m [34m[200][39m / [2m6ms[22m
+[2m19:11:27[22m [34m[200][39m / [2m8ms[22m
+[2m19:11:55[22m [34m[watch][39m src/components/Footer.astro
+[2m19:11:55[22m [34m[200][39m / [2m8ms[22m
+[2m19:11:56[22m [34m[200][39m / [2m5ms[22m
+[2m19:12:07[22m [34m[watch][39m src/components/Footer.astro
+[2m19:12:07[22m [34m[200][39m / [2m4ms[22m
+[2m19:12:08[22m [34m[200][39m / [2m5ms[22m
+[2m19:12:25[22m [34m[200][39m / [2m4ms[22m
+[2m19:18:46[22m [34m[watch][39m src/components/Footer.astro
+[2m19:18:46[22m [34m[200][39m / [2m4ms[22m
+[2m19:18:47[22m [34m[200][39m / [2m4ms[22m
+[2m19:19:01[22m [34m[200][39m / [2m3ms[22m
+[2m19:19:37[22m [34m[200][39m / [2m6ms[22m
+[2m19:19:39[22m [34m[200][39m / [2m4ms[22m
+[2m19:19:39[22m [34m[200][39m / [2m3ms[22m
+[2m19:19:41[22m [34m[200][39m / [2m4ms[22m
+[2m19:19:41[22m [34m[200][39m / [2m7ms[22m
+[2m19:19:42[22m [34m[200][39m / [2m6ms[22m
+[2m19:19:42[22m [34m[200][39m / [2m10ms[22m
+[2m19:26:09[22m [34m[watch][39m src/components/Footer.astro
+[2m19:26:09[22m [34m[200][39m / [2m19ms[22m
+[2m19:26:09[22m [34m[200][39m / [2m21ms[22m
+[2m19:26:25[22m [34m[watch][39m /src/components/Footer.astro?astro&type=style&index=0&lang.css
+[2m19:26:25[22m [34m[watch][39m src/components/Footer.astro
+[2m19:26:37[22m [34m[200][39m / [2m5ms[22m
+[2m19:28:27[22m [34m[watch][39m /src/components/Footer.astro?astro&type=style&index=0&lang.css
+[2m19:28:27[22m [34m[watch][39m src/components/Footer.astro
+[2m19:29:58[22m [34m[200][39m / [2m4ms[22m
+[2m19:30:01[22m [34m[200][39m / [2m3ms[22m
+[2m19:30:56[22m [34m[200][39m / [2m5ms[22m
+[2m19:30:57[22m [34m[200][39m / [2m5ms[22m
+[2m19:33:40[22m [34m[watch][39m /src/components/Footer.astro?astro&type=style&index=0&lang.css
+[2m19:33:40[22m [34m[watch][39m src/components/Footer.astro
+[2m19:37:19[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:37:19[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:39:29[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:39:29[22m [34m[200][39m / [2m11ms[22m
+[2m19:39:30[22m [34m[200][39m / [2m5ms[22m
+[2m19:42:56[22m [34m[200][39m / [2m5ms[22m
+[2m19:42:57[22m [34m[200][39m / [2m7ms[22m
+[2m19:43:23[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:43:23[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:43:35[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:43:35[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:43:40[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:43:40[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:43:44[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:43:44[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:44:02[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:44:02[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:44:08[22m [34m[watch][39m /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2m19:44:08[22m [34m[watch][39m src/components/Navbar.astro
+[2m19:49:51[22m [34m[vite][39m changed tsconfig file detected: C:/Users/DELL/Desktop/hadiaslam-portfolio-v5/astro-build/.shipstudio/plugins/.tmp-install/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2m19:49:52[22m [34m[200][39m / [2m38ms[22m
+[2m19:49:52[22m [34m[200][39m / [2m39ms[22m
+[2m19:49:56[22m [34m[vite][39m changed tsconfig file detected: C:/Users/DELL/Desktop/hadiaslam-portfolio-v5/astro-build/.shipstudio/plugins/cloudflare/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2m19:49:56[22m [34m[vite][39m changed tsconfig file detected: C:/Users/DELL/Desktop/hadiaslam-portfolio-v5/astro-build/.shipstudio/plugins/.tmp-install/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2m19:49:57[22m [34m[200][39m / [2m25ms[22m
+[2m19:49:57[22m [34m[200][39m / [2m26ms[22m
+[2m19:49:57[22m [34m[200][39m / [2m26ms[22m
+[2m19:51:29[22m [34m[watch][39m /src/styles/global.css
+[2m19:51:29[22m [34m[200][39m / [2m27ms[22m
+[2m19:51:30[22m [34m[200][39m / [2m5ms[22m
+[2m19:57:56[22m [34m[200][39m / [2m13ms[22m
+[2m19:57:56[22m [34m[200][39m / [2m13ms[22m
+[2m19:58:36[22m [34m[200][39m / [2m6ms[22m
+[2m19:58:39[22m [34m[200][39m / [2m4ms[22m
+[2m19:59:50[22m [34m[watch][39m src/components/Hero.astro
+[2m19:59:50[22m [34m[200][39m / [2m13ms[22m
+[2m19:59:50[22m [34m[200][39m / [2m13ms[22m
+[2m20:02:32[22m [34m[watch][39m /src/styles/global.css
+[2m20:02:32[22m [34m[200][39m / [2m30ms[22m
+[2m20:02:32[22m [34m[200][39m / [2m20ms[22m
+[2m20:02:37[22m [34m[watch][39m /src/components/Hero.astro?astro&type=style&index=0&lang.css
+[2m20:02:37[22m [34m[watch][39m src/components/Hero.astro
+[2m20:19:56[22m [34m[watch][39m src/components/Hero.astro
+[2m20:19:56[22m [34m[200][39m / [2m7ms[22m
+[2m20:19:57[22m [34m[200][39m / [2m7ms[22m
+[2m20:20:16[22m [34m[watch][39m src/components/Hero.astro
+[2m20:20:16[22m [34m[200][39m / [2m7ms[22m
+[2m20:20:17[22m [34m[200][39m / [2m5ms[22m
+[2m20:26:04[22m [34m[watch][39m src/components/Hero.astro
+[2m20:26:04[22m [34m[200][39m / [2m6ms[22m
+[2m20:26:05[22m [34m[200][39m / [2m6ms[22m
+[2m20:26:08[22m [34m[watch][39m /src/components/Hero.astro?astro&type=style&index=0&lang.css
+[2m20:26:08[22m [34m[watch][39m src/components/Hero.astro
+[2m20:28:43[22m [34m[watch][39m src/components/Hero.astro
+[2m20:28:43[22m [34m[200][39m / [2m18ms[22m
+[2m20:28:43[22m [34m[200][39m / [2m19ms[22m
+[2m20:28:47[22m [34m[watch][39m /src/components/Hero.astro?astro&type=style&index=0&lang.css
+[2m20:28:47[22m [34m[watch][39m src/components/Hero.astro
+[2m20:29:17[22m [34m[watch][39m src/components/Hero.astro
+[2m20:29:17[22m [34m[200][39m / [2m12ms[22m
+[2m20:29:18[22m [34m[200][39m / [2m7ms[22m
+[2m20:29:48[22m [34m[200][39m / [2m6ms[22m
+[2m20:31:42[22m [34m[watch][39m /src/components/Hero.astro?astro&type=style&index=0&lang.css
+[2m20:31:42[22m [34m[watch][39m src/components/Hero.astro
+[2m20:33:45[22m [34m[watch][39m src/components/Hero.astro
+[2m20:33:45[22m [34m[200][39m / [2m8ms[22m
+[2m20:33:46[22m [34m[200][39m / [2m5ms[22m
+[2m20:35:21[22m [34m[watch][39m src/components/Hero.astro
+[2m20:35:21[22m [34m[200][39m / [2m7ms[22m
+[2m20:35:22[22m [34m[200][39m / [2m7ms[22m
+[2m20:37:49[22m [34m[watch][39m src/components/Hero.astro
+[2m20:37:49[22m [34m[200][39m / [2m10ms[22m
+[2m20:37:50[22m [34m[200][39m / [2m4ms[22m
+[2m20:38:54[22m [34m[watch][39m src/components/Hero.astro
+[2m20:38:54[22m [34m[200][39m / [2m9ms[22m
+[2m20:38:55[22m [34m[200][39m / [2m7ms[22m

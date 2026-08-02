@@ -1,0 +1,19 @@
+{
+  "name": "hadia-islam-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

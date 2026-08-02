@@ -1,0 +1,234 @@
+---
+const galleryImages = [
+  'mockups-2.avif', 'mockups.avif', 'mockups-2.avif',
+  'mockups-3.avif', 'mockups-1.avif', 'mockups.avif',
+  'mockups-1.avif', 'mockups-3.avif', 'mockups-1.avif',
+];
+const conveyorImages = [...galleryImages, galleryImages.at(-1)];
+---
+
+<section class="hero" data-hero aria-labelledby="hero-title">
+  <div class="hero-content">
+    <h1 class="hero-title" id="hero-title">
+      <span class="line-mask"><span class="hero-line">Webflow Sites</span></span>
+      <span class="line-mask"><span class="hero-line">built to scale</span></span>
+      <span class="line-mask"><span class="hero-line is-muted">not just launch</span></span>
+    </h1>
+
+    <p class="hero-description">
+      <span class="line-mask"><span class="description-line">You handle the design. I handle the build</span></span>
+      <span class="line-mask"><span class="description-line">that doesn’t break under it.</span></span>
+    </p>
+
+    <a class="hero-button" href="mailto:hello@hadiaslam.com" data-hero-button>
+      <span>Let’s Collaborate</span>
+      <svg viewBox="0 0 16 14" aria-hidden="true">
+        <path d="m8.27.53 6.43 6.44-6.43 6.43M.53 6.97H14.7" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="hero-gallery" aria-hidden="true">
+    {conveyorImages.map((image, index) => (
+      <div
+        class:list={['gallery-card', { 'is-recycled': index === galleryImages.length }]}
+        style={`--i:${index === galleryImages.length ? -1 : index}`}
+        data-gallery-card
+      >
+        <img src={`/images/${image}`} alt="" loading={index < 4 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
+        <span class="gallery-overlay"></span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero) {
+    const headingLines = hero.querySelectorAll<HTMLElement>('.hero-line');
+    const descriptionLines = hero.querySelectorAll<HTMLElement>('.description-line');
+    const button = hero.querySelector<HTMLElement>('[data-hero-button]');
+    const gallery = hero.querySelector<HTMLElement>('.hero-gallery');
+    const cards = Array.from(hero.querySelectorAll<HTMLElement>('[data-gallery-card]'));
+    const availableCards = cards.slice(0, -1);
+    const recycledCard = cards.at(-1);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      gsap.set([headingLines, descriptionLines, button, cards], { clearProps: 'all' });
+    } else {
+      const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const cardCount = () => window.innerWidth <= 767 ? 4 : window.innerWidth <= 991 ? 7 : 9;
+      let currentCardCount = cardCount();
+      let activeCards = availableCards.slice(0, currentCardCount);
+      let orderedCards = recycledCard ? [recycledCard, ...activeCards] : activeCards;
+      let cycle: gsap.core.Timeline | undefined;
+      let pause: gsap.core.Tween | undefined;
+      let conveyorStarted = false;
+
+      const slotPosition = (slot: number) => {
+        if (!gallery || !cards[0]) return { x: 0, y: 0 };
+
+        const cardWidth = cards[0].offsetWidth;
+        const cardHeight = cards[0].offsetHeight;
+        const lastSlot = activeCards.length - 1;
+
+        if (slot < 0) return { x: -cardWidth - 4, y: gallery.clientHeight + 4 };
+        if (slot > lastSlot) return { x: gallery.clientWidth + 4, y: -cardHeight - 4 };
+
+        const progress = slot / lastSlot;
+        const edge = .35;
+        const startX = -cardWidth * edge;
+        const startY = gallery.clientHeight - cardHeight * (1 - edge);
+        const endX = gallery.clientWidth - cardWidth * (1 - edge);
+        const endY = -cardHeight * edge;
+
+        return {
+          x: startX + (endX - startX) * progress,
+          y: startY + (endY - startY) * progress,
+        };
+      };
+
+      const overlayOpacity = (slot: number) =>
+        Math.min(.9, Math.max(0, (activeCards.length - 1 - slot) * (.8 / Math.max(1, activeCards.length - 1))));
+
+      const placeCards = () => {
+        orderedCards.forEach((card, index) => {
+          const slot = index - 1;
+          gsap.set(card, {
+            left: 0,
+            top: 0,
+            bottom: 'auto',
+            ...slotPosition(slot),
+            zIndex: index + 1,
+            force3D: true,
+          });
+          gsap.set(card.querySelector('.gallery-overlay'), { opacity: overlayOpacity(slot) });
+        });
+      };
+
+      const runCycle = () => {
+        cycle = gsap.timeline({
+          onComplete: () => {
+            const outgoing = orderedCards.pop();
+            if (!outgoing) return;
+            orderedCards.unshift(outgoing);
+            placeCards();
+            pause = gsap.delayedCall(.8, runCycle);
+          },
+        });
+
+        orderedCards.forEach((card, index) => {
+          const nextSlot = index;
+          const startAt = index * .045;
+          const duration = 1.18;
+          cycle?.to(card, {
+            ...slotPosition(nextSlot),
+            duration,
+            ease: 'power3.inOut',
+            force3D: true,
+          }, startAt);
+          cycle?.to(card.querySelector('.gallery-overlay'), {
+            opacity: overlayOpacity(nextSlot),
+            duration,
+            ease: 'power3.inOut',
+          }, startAt);
+        });
+      };
+
+      gsap.set(headingLines, { yPercent: 115 });
+      gsap.set(descriptionLines, { yPercent: 115 });
+      gsap.set(button, { y: 18, autoAlpha: 0 });
+      gsap.set(availableCards, { display: 'none' });
+      gsap.set(activeCards, { display: 'block', scale: .85, autoAlpha: 0, transformOrigin: '50% 100%' });
+      gsap.set(recycledCard, { display: 'block', scale: 1, autoAlpha: 0 });
+      placeCards();
+
+      const startConveyor = () => {
+        if (!gallery || !recycledCard) return;
+        conveyorStarted = true;
+        gsap.set(recycledCard, { autoAlpha: 1 });
+        pause = gsap.delayedCall(.65, runCycle);
+      };
+
+      const updateCardCount = () => {
+        const nextCount = cardCount();
+        if (nextCount === currentCardCount) return;
+
+        currentCardCount = nextCount;
+        cycle?.kill();
+        pause?.kill();
+        gsap.set(availableCards, { display: 'none' });
+        activeCards = availableCards.slice(0, currentCardCount);
+        gsap.set(activeCards, { display: 'block', scale: 1, autoAlpha: 1 });
+        orderedCards = recycledCard ? [recycledCard, ...activeCards] : activeCards;
+        placeCards();
+        if (conveyorStarted) pause = gsap.delayedCall(.35, runCycle);
+      };
+
+      const resizeObserver = new ResizeObserver(() => {
+        if (!cycle?.isActive()) placeCards();
+      });
+      if (gallery) resizeObserver.observe(gallery);
+      window.addEventListener('resize', updateCardCount);
+      document.addEventListener('astro:before-swap', () => {
+        cycle?.kill();
+        pause?.kill();
+        resizeObserver.disconnect();
+        window.removeEventListener('resize', updateCardCount);
+      }, { once: true });
+
+      timeline
+        .to(headingLines, { yPercent: 0, duration: .85, stagger: .1 }, .12)
+        .to(descriptionLines, { yPercent: 0, duration: .7, stagger: .09 }, .48)
+        .to(button, { y: 0, autoAlpha: 1, duration: .65 }, .72)
+        .to(activeCards, {
+          scale: 1,
+          autoAlpha: 1,
+          duration: .85,
+          stagger: .09,
+          ease: 'back.out(1.3)',
+          onComplete: startConveyor,
+        }, .48);
+    }
+  }
+</script>
+
+<style>
+  .hero { position: relative; z-index: 1; min-height: calc(100svh - var(--nav-height)); overflow: clip; background: var(--color-canvas); }
+  .hero-content { position: relative; z-index: 3; width: min(32rem, 100%); padding: var(--section-space-sm) var(--gutter); pointer-events: none; }
+  .hero-title { display: flex; flex-direction: column; margin-bottom: 1rem; font-size: var(--type-h2); font-weight: var(--font-weight-medium); line-height: 1.1; letter-spacing: -.035em; }
+  .line-mask { display: block; overflow: hidden; }
+  .hero-line, .description-line { display: block; will-change: transform; }
+  .hero-line.is-muted { color: var(--color-text-subtle); }
+  .hero-description { max-width: 31ch; margin-bottom: 1.5rem; color: var(--color-text-muted); font-size: var(--type-body); line-height: var(--leading-body); }
+  .hero-button { display: inline-flex; align-items: center; gap: 1.5rem; min-height: 2.85rem; padding: .75rem 1.15rem; border-radius: .35rem; background: var(--color-text); color: var(--color-ink); font-size: var(--type-small); font-weight: var(--font-weight-medium); line-height: 1; pointer-events: auto; transition: transform var(--duration-normal) var(--ease-out), background-color var(--duration-normal) var(--ease-out); }
+  .hero-button:hover { background: var(--color-surface); transform: translateY(-2px); }
+  .hero-button:active { transform: scale(.96); }
+  .hero-button svg { width: 1rem; overflow: visible; }
+  .hero-button path { fill: none; stroke: currentColor; stroke-width: 1.05; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-gallery { --block-w: 25%; --total: 9; --parent-ratio: 1.8947; --block-ratio: 1.3631; position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 70%; }
+  .gallery-card { position: absolute; bottom: calc((-.35 * var(--block-w) * var(--parent-ratio) / var(--block-ratio)) + (var(--i) * ((100% - (.3 * var(--block-w) * var(--parent-ratio) / var(--block-ratio))) / (var(--total) - 1)))); left: calc((-.35 * var(--block-w)) + (var(--i) * ((100% - (.3 * var(--block-w))) / (var(--total) - 1)))); width: var(--block-w); aspect-ratio: 4.43 / 3.25; overflow: hidden; background: #242424; will-change: transform, opacity; }
+  .gallery-card.is-recycled { display: block !important; visibility: hidden; }
+  .gallery-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .gallery-overlay { position: absolute; z-index: 1; inset: 50% auto auto 50%; width: 130%; height: 130%; background: var(--color-canvas); opacity: calc((var(--total) - 1 - var(--i)) * 10%); transform: translate(-50%, -50%); }
+
+  @media (max-width: 991px) {
+    .hero { min-height: max(42rem, calc(100svh - var(--nav-height))); }
+    .hero-content { padding-top: var(--section-space-sm); }
+    .hero-gallery { --block-w: 32.5%; --total: 7; height: 48%; }
+    .gallery-card:nth-child(n + 8) { display: none; }
+  }
+  @media (max-width: 767px) {
+    .hero { min-height: 43rem; }
+    .hero-content { width: 100%; }
+    .hero-title { font-size: clamp(2.35rem, 11vw, 3.2rem); }
+    .hero-description { max-width: 34ch; }
+    .hero-gallery { --block-w: 58%; --total: 4; height: 34%; }
+    .gallery-card:nth-child(n + 5) { display: none; }
+    .gallery-overlay { opacity: calc((var(--total) - 1 - var(--i)) * 8%); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-line, .description-line, .gallery-card, .hero-button { will-change: auto; } }
+</style>
