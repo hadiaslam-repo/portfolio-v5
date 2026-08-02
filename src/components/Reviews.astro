@@ -198,6 +198,7 @@ const reviews = [
       const fill = player.querySelector<HTMLElement>('[data-progress-fill]');
       const current = player.querySelector<HTMLElement>('[data-current-time]');
       const duration = player.querySelector<HTMLElement>('[data-duration]');
+      const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
       if (!video || !toggle) return;
       let fallbackApplied = false;
       const applyFallback = () => {
@@ -212,6 +213,7 @@ const reviews = [
       video.addEventListener('loadedmetadata', () => { if (duration) duration.textContent = formatTime(video.duration); });
       video.addEventListener('play', () => {
         player.classList.add('is-playing', 'has-played');
+        player.classList.remove('controls-visible');
         toggle.setAttribute('aria-label', 'Pause video review');
       });
       video.addEventListener('pause', () => { player.classList.remove('is-playing'); toggle.setAttribute('aria-label', 'Play video review'); });
@@ -223,6 +225,13 @@ const reviews = [
         progress?.setAttribute('aria-valuenow', String(Math.round(percent)));
       });
       toggle.addEventListener('click', () => video.paused ? video.play().catch(applyFallback) : video.pause());
+      if (isTouchDevice) {
+        player.addEventListener('click', (event) => {
+          if (!player.classList.contains('is-playing')) return;
+          if ((event.target as HTMLElement).closest('[data-video-toggle], [data-video-progress], .video-controls')) return;
+          player.classList.add('controls-visible');
+        });
+      }
       const seek = (clientX: number) => {
         if (!progress || !video.duration) return;
         const rect = progress.getBoundingClientRect();
@@ -287,15 +296,17 @@ const reviews = [
   .review-player.is-playing .video-scrim { opacity: .5; }
   .review-player.is-playing .client-detail { opacity: 0; pointer-events: none; transform: translateY(-.375rem); }
   .review-player.is-playing .video-toggle { opacity: 0; }
-  .review-player.is-playing:hover .video-toggle, .review-player.is-playing .video-toggle:focus-visible { opacity: 1; }
+  .review-player.is-playing.controls-visible .video-toggle, .review-player.is-playing .video-toggle:focus-visible { opacity: 1; }
   .review-player.is-playing .icon-play { display: none; }
   .review-player.is-playing .icon-pause, .review-player.is-playing .video-controls { display: flex; }
   .slider-nav { position: absolute; z-index: 1000; top: 0; left: 50%; display: flex; justify-content: space-between; align-items: center; width: var(--card-width); height: var(--card-height); pointer-events: none; transform: translateX(-50%); }
   .slider-button { display: grid; width: 2.875rem; height: 2.875rem; padding: 0; border: 0; border-radius: .5rem; place-items: center; color: var(--color-text); background: var(--color-accent-purple); cursor: pointer; pointer-events: auto; transition: transform .2s, background-color .2s; }
   .slider-button:hover { background: #623cbd; }
-  .slider-button:active { scale: .9; }
+  .slider-button:active { transform: scale(.9); }
   .slider-button.is-prev { transform: translateX(-50%); }
   .slider-button.is-next { transform: translateX(50%); }
+  .slider-button.is-prev:active { transform: translateX(-50%) scale(.9); }
+  .slider-button.is-next:active { transform: translateX(50%) scale(.9); }
   .slider-button svg { width: 1.125rem; height: 1.125rem; }
   .reviews-title {
   margin-top: 2rem;
@@ -306,6 +317,10 @@ const reviews = [
   max-width: 20ch;
   margin-inline: auto;
 }
+
+  @media (hover: hover) and (pointer: fine) {
+    .review-player.is-playing:hover .video-toggle { opacity: 1; }
+  }
 
   @media (max-width: 991px) {
     .review-slider { --card-width: min(24rem, 74vw); --card-height: calc(var(--card-width) * 1.3462); }
