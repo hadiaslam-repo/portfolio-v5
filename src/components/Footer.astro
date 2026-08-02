@@ -193,7 +193,14 @@ const tags = [
 
 <style>
   .footer { position: relative; overflow: clip; background: var(--color-canvas); color: var(--color-text); }
-  .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: var(--gutter); }
+  .footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: var(--gutter);
+  padding-top: 2.5rem;
+}
   .email-wrap { display: flex; align-items: center; justify-content: center; gap: 1.25rem; padding: .5rem .5rem .5rem 1.25rem; border-radius: .5rem; background: rgb(255 255 255 / 6%); }
   .email-address { color: var(--color-text); font-size: var(--type-body-lg); line-height: 1; }
   .email-copy { display: flex; align-items: center; justify-content: center; width: 2.5rem; aspect-ratio: 1; padding: 0; border: 0; border-radius: .38rem; background: rgb(255 255 255 / 10%); color: var(--color-text); transition: background-color .35s, transform .35s; }
@@ -208,7 +215,7 @@ const tags = [
   .footer-logo { display: block; width: 100%; height: auto; color: var(--color-text); }
   .footer-logo path { fill: currentColor; }
   .tag-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-  .footer-tag { position: absolute; top: var(--tag-y); left: var(--tag-x); z-index: 2; padding: clamp(.45rem, .82vw, 1rem) clamp(.7rem, 1.05vw, 1.25rem); border: 0; border-radius: clamp(.35rem, .52vw, .63rem); color: var(--tag-text); background: var(--tag-bg); font-size: clamp(.75rem, 1.28vw, 1.5rem); font-weight: var(--font-weight-medium); line-height: 1.3; letter-spacing: -.01em; white-space: nowrap; touch-action: none; user-select: none; pointer-events: auto; transform: rotate(var(--tag-rotation)); will-change: transform; }
+  .footer-tag { position: absolute; top: var(--tag-y); left: var(--tag-x); z-index: 2; padding: clamp(.45rem, .82vw, 1rem) clamp(.7rem, 1.05vw, 1.25rem); border: 0; border-radius: clamp(.35rem, .52vw, .63rem); color: var(--tag-text); background: var(--tag-bg); font-size: var(--type-h6); font-weight: var(--font-weight-medium); line-height: 1.3; letter-spacing: -.01em; white-space: nowrap; touch-action: none; user-select: none; pointer-events: auto; transform: rotate(var(--tag-rotation)); will-change: transform; }
   .is-purple { --tag-bg: #9078db; --tag-text: #211b31; }
   .is-lime { --tag-bg: #d0e957; --tag-text: #344000; }
   .is-lilac { --tag-bg: #cdc5ff; --tag-text: #40366f; }
@@ -223,7 +230,7 @@ const tags = [
     .footer-top { align-items: flex-start; flex-direction: column; }
     .footer-nav { flex-wrap: wrap; }
     .tag-layer { inset: auto 0 0; display: flex; align-items: flex-end; justify-content: center; gap: 0; height: 44%; padding: 0 0 clamp(.25rem, 1.2vw, .45rem); overflow: hidden; }
-    .footer-tag { position: relative; top: auto; left: auto; flex: 0 0 20.5%; width: 20.5%; max-width: none; min-width: 0; padding: clamp(.28rem, 1.6vw, .44rem) clamp(.28rem, 1.5vw, .48rem); overflow: hidden; border-radius: .3rem; font-size: clamp(.55rem, 2.3vw, .75rem); text-overflow: clip; cursor: default !important; touch-action: auto; }
+    .footer-tag { position: relative; top: auto; left: auto; flex: 0 0 20.5%; width: 20.5%; max-width: none; min-width: 0; padding: clamp(.28rem, 1.6vw, .44rem) clamp(.28rem, 1.5vw, .48rem); overflow: hidden; border-radius: .3rem; font-size: var(--type-caption); text-overflow: clip; cursor: default !important; touch-action: auto; }
     .footer-tag + .footer-tag { margin-left: -.6%; }
     .footer-tag:nth-child(1) { transform: rotate(-5deg) !important; }
     .footer-tag:nth-child(2) { transform: rotate(3deg) !important; }
