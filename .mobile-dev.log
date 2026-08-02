@@ -113,3 +113,11 @@
 [2m23:52:37[22m [34m[watch][39m src/components/Footer.astro
 [2m23:52:41[22m [34m[watch][39m /src/components/Footer.astro?astro&type=style&index=0&lang.css
 [2m23:52:41[22m [34m[watch][39m src/components/Footer.astro
+[2m00:20:33[22m [34m[watch][39m src/components/Navbar.astro
+[2m00:20:37[22m Configuration file updated. Restarting...
+[2m00:20:39[22m [34m[content][39m Syncing content
+[2m00:20:39[22m [34m[content][39m Astro config changed
+[2m00:20:39[22m [34m[content][39m Clearing content store
+[2m00:20:39[22m [34m[content][39m Synced content
+[2m00:20:39[22m [34m[types][39m Generated [2m1.76s[22m
+[2m00:20:39[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
