@@ -1,0 +1,322 @@
+---
+const cards = [
+  { number: '01', title: 'Custom Code', tags: ['Functionality', 'Make it Work'], body: 'Beyond native Webflow, built with custom code when your project needs to go further.', tone: 'orange' },
+  { number: '02', title: 'Motion', tags: ['GSAP', 'Make it Pop'], body: 'Smooth, purposeful animation that adds impact without slowing things down.', tone: 'lime' },
+  { number: '03', title: 'Reliability', tags: ['Dependable', 'It’s Working'], body: 'Clear communication, on-time delivery, and a developer who follows through.', tone: 'lilac' },
+  { number: '04', title: 'Scalability', tags: ['Systems', 'Stretch It'], body: 'Sites that grow with you, add pages and content without breaking anything.', tone: 'cyan' },
+];
+---
+
+<section class="value-proposition" data-value-proposition aria-labelledby="value-proposition-title">
+  <div class="value-pin" data-value-pin>
+    <div class="value-copy-layer" data-value-copy>
+      <h2 class="value-heading" id="value-proposition-title" data-value-heading>
+        <span class="value-line">I’m the <strong>missing piece</strong> your</span>
+        <span class="value-line">Webflow project needs and the</span>
+        <span class="value-line">one that goes <strong>beyond its limits.</strong></span>
+      </h2>
+    </div>
+
+    <div class="value-card-layer" data-value-card-layer aria-hidden="true">
+      <div class="value-stack" data-value-slider tabindex="0" role="region" aria-label="Value cards slider">
+        <div class="value-dragger" data-value-dragger aria-hidden="true"></div>
+        {cards.map((card, index) => (
+          <article class:list={['value-card', `is-${card.tone}`]} data-value-card aria-label={`${card.title}, ${index + 1} of ${cards.length}`}>
+            <div class="value-card-top">
+              <span class="value-number">{card.number}</span>
+              <div class="value-title-wrap">
+                <h3>{card.title}</h3>
+                <div class="value-tags">{card.tags.map((tag) => <span>{tag}</span>)}</div>
+              </div>
+            </div>
+            <p>{card.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { Draggable } from 'gsap/Draggable';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { SplitText } from 'gsap/SplitText';
+
+  gsap.registerPlugin(Draggable, ScrollTrigger, SplitText);
+
+  const root = document.querySelector<HTMLElement>('[data-value-proposition]');
+  if (root) {
+    const pin = root.querySelector<HTMLElement>('[data-value-pin]');
+    const textLayer = root.querySelector<HTMLElement>('[data-value-copy]');
+    const cardLayer = root.querySelector<HTMLElement>('[data-value-card-layer]');
+    const heading = root.querySelector<HTMLElement>('[data-value-heading]');
+    const slider = root.querySelector<HTMLElement>('[data-value-slider]');
+    const dragger = root.querySelector<HTMLElement>('[data-value-dragger]');
+    const authoredLines = Array.from(root.querySelectorAll<HTMLElement>('.value-line'));
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-value-card]'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (pin && textLayer && cardLayer && heading && slider && cards.length) {
+      const TEXT_PHASE_END = .42;
+      const EXIT_PHASE_END = .58;
+      const clamp = gsap.utils.clamp(0, 1);
+      const split = new SplitText(heading, { type: 'words', wordsClass: 'value-word' });
+      const words = split.words as HTMLElement[];
+      words.forEach((word) => {
+        if (word.closest('strong')) word.classList.add('is-highlight');
+        gsap.set(word, { display: 'inline-block' });
+      });
+
+      const fillText = (progress: number) => {
+        words.forEach((word, index) => {
+          const threshold = index / words.length;
+          const wordProgress = clamp((progress - threshold) / (1.25 / words.length));
+          const alpha = 40 + 60 * wordProgress;
+          word.style.color = `color-mix(in srgb, var(--color-text) ${alpha.toFixed(1)}%, transparent)`;
+          if (word.classList.contains('is-highlight')) {
+            gsap.set(word, { fontWeight: 500 + 100 * wordProgress });
+          }
+        });
+      };
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 992px)', () => {
+        if (reduceMotion) {
+          gsap.set(textLayer, { autoAlpha: 0 });
+          gsap.set(cardLayer, { autoAlpha: 1 });
+          cards.forEach((card, index) => gsap.set(card, {
+            y: Math.pow(index - (cards.length - 1) / 2, 2) * 12,
+            rotation: (index - (cards.length - 1) / 2) * 8,
+            scale: 1, opacity: 1, filter: 'none', zIndex: index + 1,
+          }));
+          return;
+        }
+
+        const exitText = (progress: number) => {
+        const ease = gsap.parseEase('power2.in');
+        authoredLines.forEach((line, index) => {
+          const threshold = index / authoredLines.length * .6;
+          gsap.set(line, { yPercent: -115 * ease(clamp((progress - threshold) / (1 - threshold))) });
+        });
+        };
+
+        const finalTransforms = cards.map((_, index) => ({ zIndex: index + 1 }));
+        const positionEase = gsap.parseEase('power2.out');
+        const settleEase = gsap.parseEase('back.out(1.8)');
+
+        const cardProgress = (progress: number) => {
+        const slot = 1 / cards.length;
+        cards.forEach((card, index) => {
+          const raw = clamp((progress - index * slot) / (slot * .75));
+          const position = positionEase(raw);
+          const settle = settleEase(raw);
+          const deckY = Math.min(320, window.innerHeight * .4);
+          const controlY = -Math.min(90, window.innerHeight * .11);
+          const remaining = 1 - position;
+          const flightY = (1 - position) * (1 - position) * deckY + 2 * (1 - position) * position * controlY;
+          const centerOffset = index - (cards.length - 1) / 2;
+          const finalRotation = centerOffset * 8;
+          const finalY = Math.pow(centerOffset, 2) * 12;
+          const y = flightY + finalY * settle;
+          const wobble = Math.sin(raw * Math.PI * 3) * 3.5 * remaining;
+          gsap.set(card, {
+            y,
+            x: 0,
+            rotation: -4 + (finalRotation + 4) * settle + wobble,
+            scale: .85 + .15 * settle,
+            opacity: clamp(raw / .25),
+            zIndex: finalTransforms[index].zIndex,
+            filter: `blur(${(3.5 * remaining).toFixed(2)}px)`,
+            boxShadow: 'none',
+          });
+        });
+        };
+
+        const render = (progress: number) => {
+        if (progress <= TEXT_PHASE_END) {
+          gsap.set(textLayer, { autoAlpha: 1 });
+          gsap.set(cardLayer, { autoAlpha: 0 });
+          fillText(clamp(progress / TEXT_PHASE_END));
+          exitText(0);
+        } else if (progress <= EXIT_PHASE_END) {
+          gsap.set(textLayer, { autoAlpha: 1 });
+          gsap.set(cardLayer, { autoAlpha: 0 });
+          fillText(1);
+          exitText(clamp((progress - TEXT_PHASE_END) / (EXIT_PHASE_END - TEXT_PHASE_END)));
+        } else {
+          gsap.set(textLayer, { autoAlpha: 0 });
+          gsap.set(cardLayer, { autoAlpha: 1 });
+          cardProgress(clamp((progress - EXIT_PHASE_END) / (1 - EXIT_PHASE_END)));
+        }
+        };
+
+        render(0);
+        const trigger = ScrollTrigger.create({
+        trigger: root,
+        start: 'top top',
+        end: () => `+=${window.innerHeight * 6}`,
+        pin,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => render(self.progress),
+        });
+        return () => trigger.kill();
+      });
+
+      mm.add('(max-width: 991px)', () => {
+        const mod = (value: number) => ((value % cards.length) + cards.length) % cards.length;
+        let activeIndex = 0;
+        let sliderWidth = slider.clientWidth || window.innerWidth;
+        const stackRotations = [0, -3, 2.5, -2];
+        const stackX = [0, -2.5, 2, -1.5];
+        const stackY = [0, -1.5, -3, -4.5];
+
+        gsap.set(textLayer, { autoAlpha: 1 });
+        gsap.set(cardLayer, { autoAlpha: 1 });
+        fillText(reduceMotion ? 1 : 0);
+
+        const textTrigger = reduceMotion ? undefined : ScrollTrigger.create({
+          trigger: heading,
+          start: 'top 92%',
+          end: 'bottom 62%',
+          scrub: .5,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => fillText(self.progress),
+          onLeave: () => fillText(1),
+          onLeaveBack: () => fillText(0),
+        });
+
+        const cardState = (index: number, center: number) => {
+          const depth = mod(index - center);
+          return {
+            xPercent: stackX[depth], yPercent: stackY[depth], rotation: stackRotations[depth],
+            scale: 1 - depth * .015, opacity: 1, zIndex: cards.length - depth,
+          };
+        };
+
+        const renderStack = (animate = true) => {
+          cards.forEach((card, index) => {
+            const state = cardState(index, activeIndex);
+            card.style.zIndex = String(state.zIndex);
+            card.toggleAttribute('inert', index !== activeIndex);
+            card.setAttribute('aria-hidden', String(index !== activeIndex));
+            gsap[animate ? 'to' : 'set'](card, {
+              ...state,
+              ...(animate ? { duration: .55, ease: 'power3.out' } : {}),
+            });
+          });
+        };
+
+        const goTo = (index: number) => { activeIndex = mod(index); renderStack(); };
+        const onKeyDown = (event: KeyboardEvent) => {
+          if (event.key === 'ArrowLeft') goTo(activeIndex - 1);
+          if (event.key === 'ArrowRight') goTo(activeIndex + 1);
+        };
+        slider.addEventListener('keydown', onKeyDown);
+
+        const draggable = dragger ? Draggable.create(dragger, {
+          type: 'x', trigger: slider, allowNativeTouchScrolling: true, dragClickables: false,
+          bounds: { minX: -sliderWidth / 2, maxX: sliderWidth / 2 }, edgeResistance: .8,
+          onPress() { slider.dataset.dragStatus = 'grabbing'; },
+          onDrag() {
+            const progress = Math.min(1, Math.abs(this.x / sliderWidth));
+            const nextIndex = mod(activeIndex + (this.x > 0 ? -1 : 1));
+            cards.forEach((card, index) => {
+              const from = cardState(index, activeIndex);
+              const to = cardState(index, nextIndex);
+              gsap.set(card, {
+                xPercent: gsap.utils.interpolate(from.xPercent, to.xPercent, progress),
+                yPercent: gsap.utils.interpolate(from.yPercent, to.yPercent, progress),
+                rotation: gsap.utils.interpolate(from.rotation, to.rotation, progress),
+                scale: gsap.utils.interpolate(from.scale, to.scale, progress),
+              });
+            });
+          },
+          onRelease() {
+            const shift = this.x / sliderWidth > .05 ? -1 : this.x / sliderWidth < -.05 ? 1 : 0;
+            goTo(activeIndex + shift);
+            gsap.to(this.target, { x: 0, duration: .25, ease: 'power2.out' });
+            slider.dataset.dragStatus = 'grab';
+          },
+        })[0] : undefined;
+
+        const onResize = () => {
+          sliderWidth = slider.clientWidth || window.innerWidth;
+          draggable?.applyBounds({ minX: -sliderWidth / 2, maxX: sliderWidth / 2 });
+          renderStack(false);
+        };
+        window.addEventListener('resize', onResize);
+        renderStack(false);
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+
+        return () => {
+          textTrigger?.kill();
+          draggable?.kill();
+          slider.removeEventListener('keydown', onKeyDown);
+          window.removeEventListener('resize', onResize);
+        };
+      });
+
+      document.addEventListener('astro:before-swap', () => { mm.revert(); split.revert(); }, { once: true });
+    } else if (textLayer && cardLayer) {
+      textLayer.hidden = true;
+      cardLayer.style.opacity = '1';
+      cardLayer.removeAttribute('aria-hidden');
+    }
+  }
+</script>
+
+<style>
+  .value-proposition { position: relative; z-index: 2; background: var(--color-canvas); }
+  .value-pin { position: relative; height: 100vh; overflow: hidden; }
+  .value-copy-layer, .value-card-layer { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; padding-inline: var(--gutter); }
+  .value-heading { width: calc(100vw - (var(--gutter) * 2)); max-width: none; color: var(--color-text); font-size: var(--type-h1); font-weight: var(--font-weight-medium); line-height: 1; letter-spacing: -.02em; text-align: center; }
+  .value-line { display: block; overflow: visible; white-space: nowrap; will-change: transform; }
+  .value-heading strong { font-weight: var(--font-weight-medium); }
+  :global(.value-word) { display: inline-block; white-space: nowrap; }
+  :global(.value-word) { color: color-mix(in srgb, var(--color-text) 40%, transparent); }
+  .value-card-layer { opacity: 0; pointer-events: none; }
+  .value-stack { --card-width: 21rem; --card-height: 25rem; display: flex; justify-content: center; align-items: center; width: 50rem; height: 26.25rem; transform: translateX(6rem); }
+  .value-dragger { display: none; }
+  .value-card { display: flex; flex: none; flex-direction: column; justify-content: space-between; align-items: flex-start; width: var(--card-width); height: var(--card-height); margin-left: -12rem; padding: 1.5rem; border-radius: 1rem; color: var(--color-ink); transform-origin: 50% 100%; box-shadow: none; will-change: transform, opacity, filter; }
+  .value-card:first-child { margin-left: 0; }
+  .value-card.is-orange { background: var(--color-accent-orange); }
+  .value-card.is-lime { background: var(--color-accent-lime); }
+  .value-card.is-lilac { background: var(--color-accent-lilac); }
+  .value-card.is-cyan { background: var(--color-accent-cyan); }
+  .value-card-top, .value-title-wrap { display: flex; flex-direction: column; align-items: flex-start; }
+  .value-card-top { gap: 1.5rem; }
+  .value-title-wrap { gap: .75rem; }
+  .value-number { opacity: .15; font-size: var(--type-h3); font-weight: var(--font-weight-medium); line-height: 1; }
+  .value-card h3 { color: var(--color-ink); font-size: var(--type-h5); line-height: 1.3; }
+  .value-tags { display: flex; gap: .25rem; }
+  .value-tags span { padding: .5rem; border-radius: .25rem; background: rgb(0 0 0 / 9%); font-size: var(--type-caption); font-weight: var(--font-weight-medium); line-height: 1; }
+  .value-card p { color: var(--color-ink); font-size: var(--type-body-lg); font-weight: var(--font-weight-medium); line-height: var(--leading-body); }
+
+  @media (max-width: 991px) {
+    .value-pin { display: flex; flex-direction: column; align-items: center; gap: clamp(3rem, 8vw, 5rem); height: auto; overflow: clip; padding: clamp(4rem, 10vw, 7rem) var(--gutter); }
+    .value-copy-layer, .value-card-layer { position: static; inset: auto; width: 100%; padding: 0; }
+    .value-card-layer { pointer-events: auto; }
+    .value-heading { width: min(100%, 42rem); font-size: var(--type-h1); line-height: 1.02; }
+    .value-line { display: inline; overflow: visible; white-space: normal; }
+    .value-stack { --card-width: min(21rem, 68vw); --card-height: calc(var(--card-width) * 1.19); position: relative; width: min(100%, 42rem); height: calc(var(--card-height) + 2rem); transform: none; cursor: grab; touch-action: pan-y; }
+    .value-stack[data-drag-status='grabbing'] { cursor: grabbing; }
+    .value-dragger { display: block; position: absolute; z-index: 20; inset: 0; pointer-events: auto; opacity: 0; touch-action: pan-y; }
+    .value-card,
+    .value-card:first-child { position: absolute; top: 50%; left: 50%; margin-top: calc(var(--card-height) / -2); margin-left: calc(var(--card-width) / -2); transform-origin: 50% 100%; }
+  }
+
+  @media (max-width: 767px) {
+    .value-pin { gap: 3rem; padding-block: 4rem; }
+    .value-heading { width: 100%; font-size: clamp(2.25rem, 10vw, 2.625rem); }
+    .value-stack { --card-width: min(21rem, calc(100vw - 3rem)); --card-height: calc(var(--card-width) * 1.19); width: calc(100vw - 2rem); height: calc(var(--card-height) + 2rem); }
+    .value-card,
+    .value-card:first-child { margin-top: calc(var(--card-height) / -2); margin-left: calc(var(--card-width) / -2); padding: 1rem; border-radius: .75rem; }
+    .value-card-top { gap: 1rem; }
+    .value-card h3 { font-size: var(--type-h6); }
+    .value-card p { font-size: var(--type-small); }
+    .value-tags span { padding: .4rem; }
+  }
+</style>

@@ -207,3 +207,40 @@
 [2m00:44:09[22m [34m[watch][39m /src/components/Reviews.astro?astro&type=style&index=0&lang.css
 [2m00:44:09[22m [34m[watch][39m src/components/Reviews.astro
 [2m00:44:39[22m [34m[200][39m / [2m7ms[22m
+[2m00:51:24[22m [34m[200][39m / [2m14ms[22m
+[2m00:51:25[22m [34m[200][39m / [2m9ms[22m
+[2m00:51:25[22m [34m[vite][39m [32m✨ new dependencies optimized: [33mgsap/ScrollTrigger, gsap/SplitText[32m[39m
+[2m00:51:25[22m [34m[vite][39m [32m✨ optimized dependencies changed. reloading[39m
+[2m00:51:25[22m [34m[200][39m / [2m9ms[22m
+[2m00:51:27[22m [34m[200][39m / [2m10ms[22m
+[2m00:54:42[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m00:54:43[22m [34m[200][39m / [2m16ms[22m
+[2m00:54:43[22m [34m[200][39m / [2m13ms[22m
+[2m00:57:16[22m [34m[watch][39m /src/components/ValueProposition.astro?astro&type=style&index=0&lang.css
+[2m00:57:16[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:00:19[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:00:19[22m [34m[200][39m / [2m22ms[22m
+[2m01:00:20[22m [34m[200][39m / [2m9ms[22m
+[2m01:03:49[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:03:50[22m [34m[200][39m / [2m21ms[22m
+[2m01:03:50[22m [34m[200][39m / [2m14ms[22m
+[2m01:04:08[22m [34m[watch][39m /src/components/ValueProposition.astro?astro&type=style&index=0&lang.css
+[2m01:04:08[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:05:40[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:05:40[22m [34m[200][39m / [2m11ms[22m
+[2m01:05:41[22m [34m[200][39m / [2m12ms[22m
+[2m01:12:19[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:12:19[22m [34m[200][39m / [2m14ms[22m
+[2m01:12:20[22m [34m[200][39m / [2m8ms[22m
+[2m01:12:45[22m [34m[watch][39m /src/components/ValueProposition.astro?astro&type=style&index=0&lang.css
+[2m01:12:45[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:14:51[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:14:52[22m [34m[200][39m / [2m9ms[22m
+[2m01:14:52[22m [34m[200][39m / [2m9ms[22m
+[2m01:15:04[22m [34m[watch][39m /src/components/ValueProposition.astro?astro&type=style&index=0&lang.css
+[2m01:15:04[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:16:45[22m [34m[watch][39m src/components/ValueProposition.astro
+[2m01:16:46[22m [34m[200][39m / [2m13ms[22m
+[2m01:16:46[22m [34m[200][39m / [2m9ms[22m
+[2m01:19:53[22m [34m[watch][39m /src/components/ValueProposition.astro?astro&type=style&index=0&lang.css
+[2m01:19:53[22m [34m[watch][39m src/components/ValueProposition.astro
