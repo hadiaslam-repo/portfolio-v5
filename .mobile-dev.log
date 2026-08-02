@@ -121,3 +121,12 @@
 [2m00:20:39[22m [34m[content][39m Synced content
 [2m00:20:39[22m [34m[types][39m Generated [2m1.76s[22m
 [2m00:20:39[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m00:34:17[22m [34m[200][39m / [2m39ms[22m
+[2m00:37:11[22m [34m[watch][39m /src/components/Reviews.astro?astro&type=style&index=0&lang.css
+[2m00:37:11[22m [34m[watch][39m src/components/Reviews.astro
+[2m00:38:01[22m [34m[watch][39m /src/components/Reviews.astro?astro&type=style&index=0&lang.css
+[2m00:38:01[22m [34m[watch][39m src/components/Reviews.astro
+[2m00:38:06[22m [34m[watch][39m /src/components/Reviews.astro?astro&type=style&index=0&lang.css
+[2m00:38:06[22m [34m[watch][39m src/components/Reviews.astro
+[2m00:38:20[22m [34m[watch][39m /src/components/Reviews.astro?astro&type=style&index=0&lang.css
+[2m00:38:20[22m [34m[watch][39m src/components/Reviews.astro

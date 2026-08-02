@@ -1,0 +1,326 @@
+---
+const reviews = [
+  {
+    type: 'video', name: 'Anna Dawson', role: 'Founder, Saint Scout',
+    avatar: 'T07QH1TUPHU-U07Q940HK9D-82c4bd5acbaa-72.jpg', thumbnail: 'Untitled-Project-Time-0_00_0012.png',
+    video: 'https://assets.hadiaslam.com/anna-review.mp4', fallback: 'https://pub-e505abaa47c74b789b3c7e98a401ba72.r2.dev/anna-review.mp4',
+  },
+  {
+    type: 'text', name: 'Miles Fletcher', role: 'Founder, EasyTech Web', avatar: 'client-image-2.png', tone: 'orange',
+    quote: 'Hadi did an excellent job creating my agency site on Webflow. The process was easy and seamless, and the final result is a beautiful, professional website. Highly recommend his services!',
+  },
+  {
+    type: 'video', name: 'Jody Logan', role: 'Founder, Healthcare Solutions Center',
+    avatar: 'client-image.png', thumbnail: 'Jody.png', video: 'https://assets.hadiaslam.com/jody-review.mp4',
+    fallback: 'https://pub-e505abaa47c74b789b3c7e98a401ba72.r2.dev/jody-review.mp4',
+  },
+  {
+    type: 'text', name: 'Amal Ravindran', role: 'Co-Founder, Duologue', avatar: 'client-image-4.png', tone: 'purple',
+    quote: 'Hadi brought his A-game to the project and committed 200% to making this a success. I highly recommend him and would love to work with him in the future! He’s a superstar!!!',
+  },
+  {
+    type: 'text', name: 'Jody Logan', role: 'Founder, Healthcare Solutions Center', avatar: 'client-image.png', tone: 'blue',
+    quote: 'You find working with Hadi is very pleasurable. His communication is fast, efficient and accurate. He takes interest in your project to understand it better, and that comes through in the final result of the work.',
+  },
+  {
+    type: 'video', name: 'Julia Madsen', role: 'Founder, Jules Studio',
+    avatar: 'client-image-3.png', thumbnail: 'Julia.png', video: 'https://assets.hadiaslam.com/julia-review.mp4',
+    fallback: 'https://pub-e505abaa47c74b789b3c7e98a401ba72.r2.dev/julia-review.mp4',
+  },
+  {
+    type: 'text', name: 'Jody Logan', role: 'Founder, Healthcare Solutions Center', avatar: 'client-image.png', tone: 'yellow',
+    quote: 'You find working with Hadi is very pleasurable. His communication is fast, efficient and accurate. He takes interest in your project to understand it better, and that comes through in the final result of the work.',
+  },
+];
+---
+
+<section class="reviews" aria-labelledby="reviews-title" data-reviews>
+  <div class="reviews-inner">
+    <div class="review-slider" data-review-slider data-drag-status="grab">
+      <div class="review-dragger" data-review-dragger aria-hidden="true"></div>
+      <div class="review-list" data-review-list aria-live="polite">
+        {reviews.map((review, index) => (
+          <article
+            class:list={['review-card', `is-${review.type}`, review.tone && `is-${review.tone}`]}
+            data-review-card
+            aria-label={`${review.name} review, ${index + 1} of ${reviews.length}`}
+          >
+            {review.type === 'video' ? (
+              <div class="review-player" data-review-player>
+                <video
+                  class="review-video"
+                  data-review-video
+                  data-fallback-src={review.fallback}
+                  preload="metadata"
+                  playsinline
+                >
+                  <source src={review.video} type="video/mp4" />
+                </video>
+                <div class="video-scrim"></div>
+                <img class="review-thumbnail" data-review-thumbnail src={`/images/reviews/${review.thumbnail}`} alt="" loading="lazy" />
+                <div class="client-detail" data-client-detail>
+                  <img class="client-image" src={`/images/reviews/${review.avatar}`} alt="" loading="lazy" />
+                  <div class="client-copy"><span class="client-name">{review.name}</span><span class="client-role">{review.role}</span></div>
+                </div>
+                <button class="video-toggle" data-video-toggle type="button" aria-label={`Play ${review.name}’s review`}>
+                  <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+                </button>
+                <div class="video-controls">
+                  <span class="video-time" data-current-time>0:00</span>
+                  <div class="video-progress" data-video-progress role="slider" tabindex="0" aria-label="Video progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <span class="progress-track"></span><span class="progress-fill" data-progress-fill><span class="progress-dot"></span></span>
+                  </div>
+                  <span class="video-time" data-duration>0:00</span>
+                </div>
+              </div>
+            ) : (
+              <>
+                <blockquote>{review.quote}</blockquote>
+                <div class="client-detail">
+                  <img class="client-image" src={`/images/reviews/${review.avatar}`} alt="" loading="lazy" />
+                  <div class="client-copy"><span class="client-name">{review.name}</span><span class="client-role">{review.role}</span></div>
+                </div>
+              </>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <div class="slider-nav">
+        <button class="slider-button is-prev" data-review-prev type="button" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+        </button>
+        <button class="slider-button is-next" data-review-next type="button" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+        </button>
+      </div>
+    </div>
+    <h2 class="reviews-title" id="reviews-title">In short, people like working with me.</h2>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { Draggable } from 'gsap/Draggable';
+
+  gsap.registerPlugin(Draggable);
+
+  const root = document.querySelector<HTMLElement>('[data-reviews]');
+  if (root) {
+    const slider = root.querySelector<HTMLElement>('[data-review-slider]');
+    const list = root.querySelector<HTMLElement>('[data-review-list]');
+    const dragger = root.querySelector<HTMLElement>('[data-review-dragger]');
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-review-card]'));
+    const mod = (value: number, length: number) => ((value % length) + length) % length;
+    let activeIndex = 0;
+
+    const pauseInactiveVideos = () => cards.forEach((card, index) => {
+      if (index === activeIndex) return;
+      const video = card.querySelector<HTMLVideoElement>('[data-review-video]');
+      if (video && !video.paused) video.pause();
+    });
+
+    const cardState = (index: number, center: number) => {
+      const viewportProgress = gsap.utils.clamp(0, 1, (window.innerWidth - 320) / 1120);
+      const spread = gsap.utils.interpolate(14, 40, viewportProgress);
+      const nearRotation = gsap.utils.interpolate(6, 10, viewportProgress);
+      const farRotation = gsap.utils.interpolate(10, 15, viewportProgress);
+      const hiddenRotation = gsap.utils.interpolate(14, 20, viewportProgress);
+      let difference = index - center;
+      if (difference > cards.length / 2) difference -= cards.length;
+      if (difference < -cards.length / 2) difference += cards.length;
+      if (difference === 0) return { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, zIndex: 5 };
+      if (difference === 1) return { x: spread, y: 4, rotation: nearRotation, scale: .9, opacity: 1, zIndex: 4 };
+      if (difference === -1) return { x: -spread, y: 4, rotation: -nearRotation, scale: .9, opacity: 1, zIndex: 4 };
+      if (difference === 2) return { x: spread * 1.8, y: 12, rotation: farRotation, scale: .8, opacity: 1, zIndex: 3 };
+      if (difference === -2) return { x: spread * -1.8, y: 12, rotation: -farRotation, scale: .8, opacity: 1, zIndex: 3 };
+      return { x: difference > 0 ? spread * 2.2 : spread * -2.2, y: 12, rotation: difference > 0 ? hiddenRotation : -hiddenRotation, scale: .6, opacity: 0, zIndex: 2 };
+    };
+
+    const render = (animate = true) => {
+      cards.forEach((card, index) => {
+        const state = cardState(index, activeIndex);
+        card.style.zIndex = String(state.zIndex);
+        card.toggleAttribute('inert', index !== activeIndex);
+        card.setAttribute('aria-hidden', String(index !== activeIndex));
+        gsap[animate ? 'to' : 'set'](card, {
+          xPercent: state.x, yPercent: state.y, rotation: state.rotation,
+          scale: state.scale, opacity: state.opacity,
+          ...(animate ? { duration: .6, ease: 'elastic.out(1.2, 1)' } : {}),
+        });
+      });
+      pauseInactiveVideos();
+    };
+
+    const goTo = (index: number) => { activeIndex = mod(index, cards.length); render(); };
+    root.querySelector('[data-review-prev]')?.addEventListener('click', () => goTo(activeIndex - 1));
+    root.querySelector('[data-review-next]')?.addEventListener('click', () => goTo(activeIndex + 1));
+    slider?.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') goTo(activeIndex - 1);
+      if (event.key === 'ArrowRight') goTo(activeIndex + 1);
+    });
+
+    let sliderWidth = slider?.clientWidth || window.innerWidth;
+    const draggable = dragger && list ? Draggable.create(dragger, {
+      type: 'x', trigger: list, allowNativeTouchScrolling: true, dragClickables: false,
+      bounds: { minX: -sliderWidth / 2, maxX: sliderWidth / 2 }, edgeResistance: .8,
+      onPress() { slider?.setAttribute('data-drag-status', 'grabbing'); },
+      onDrag() {
+        const raw = this.x / sliderWidth;
+        const progress = Math.min(1, Math.abs(raw));
+        const nextIndex = mod(activeIndex + (raw > 0 ? -1 : 1), cards.length);
+        cards.forEach((card, index) => {
+          const from = cardState(index, activeIndex);
+          const to = cardState(index, nextIndex);
+          gsap.set(card, {
+            xPercent: gsap.utils.interpolate(from.x, to.x, progress),
+            yPercent: gsap.utils.interpolate(from.y, to.y, progress),
+            rotation: gsap.utils.interpolate(from.rotation, to.rotation, progress),
+            scale: gsap.utils.interpolate(from.scale, to.scale, progress),
+            opacity: gsap.utils.interpolate(from.opacity, to.opacity, progress),
+          });
+        });
+      },
+      onRelease() {
+        const shift = this.x / sliderWidth > .03 ? -1 : this.x / sliderWidth < -.03 ? 1 : 0;
+        goTo(activeIndex + shift);
+        gsap.to(this.target, { x: 0, duration: .3, ease: 'power1.out' });
+        slider?.setAttribute('data-drag-status', 'grab');
+      },
+    })[0] : undefined;
+
+    const formatTime = (seconds: number) => Number.isFinite(seconds) ? `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}` : '0:00';
+    root.querySelectorAll<HTMLElement>('[data-review-player]').forEach((player) => {
+      const video = player.querySelector<HTMLVideoElement>('[data-review-video]');
+      const toggle = player.querySelector<HTMLButtonElement>('[data-video-toggle]');
+      const progress = player.querySelector<HTMLElement>('[data-video-progress]');
+      const fill = player.querySelector<HTMLElement>('[data-progress-fill]');
+      const current = player.querySelector<HTMLElement>('[data-current-time]');
+      const duration = player.querySelector<HTMLElement>('[data-duration]');
+      if (!video || !toggle) return;
+      let fallbackApplied = false;
+      const applyFallback = () => {
+        const fallback = video.dataset.fallbackSrc;
+        if (!fallback || fallbackApplied) return;
+        fallbackApplied = true;
+        const source = video.querySelector('source');
+        if (source) source.src = fallback; else video.src = fallback;
+        video.load();
+      };
+      video.addEventListener('error', applyFallback);
+      video.addEventListener('loadedmetadata', () => { if (duration) duration.textContent = formatTime(video.duration); });
+      video.addEventListener('play', () => {
+        player.classList.add('is-playing', 'has-played');
+        toggle.setAttribute('aria-label', 'Pause video review');
+      });
+      video.addEventListener('pause', () => { player.classList.remove('is-playing'); toggle.setAttribute('aria-label', 'Play video review'); });
+      video.addEventListener('ended', () => player.classList.remove('is-playing'));
+      video.addEventListener('timeupdate', () => {
+        const percent = video.duration ? video.currentTime / video.duration * 100 : 0;
+        if (current) current.textContent = formatTime(video.currentTime);
+        if (fill) fill.style.width = `${percent}%`;
+        progress?.setAttribute('aria-valuenow', String(Math.round(percent)));
+      });
+      toggle.addEventListener('click', () => video.paused ? video.play().catch(applyFallback) : video.pause());
+      const seek = (clientX: number) => {
+        if (!progress || !video.duration) return;
+        const rect = progress.getBoundingClientRect();
+        video.currentTime = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width)) * video.duration;
+      };
+      progress?.addEventListener('pointerdown', (event) => { event.stopPropagation(); progress.setPointerCapture(event.pointerId); seek(event.clientX); });
+      progress?.addEventListener('pointermove', (event) => { if (progress.hasPointerCapture(event.pointerId)) seek(event.clientX); });
+      progress?.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') video.currentTime = Math.max(0, video.currentTime - 5);
+        if (event.key === 'ArrowRight') video.currentTime = Math.min(video.duration || 0, video.currentTime + 5);
+      });
+    });
+
+    const onResize = () => {
+      sliderWidth = slider?.clientWidth || window.innerWidth;
+      draggable?.applyBounds({ minX: -sliderWidth / 2, maxX: sliderWidth / 2 });
+      render(false);
+    };
+    window.addEventListener('resize', onResize);
+    render(false);
+    document.addEventListener('astro:before-swap', () => { draggable?.kill(); window.removeEventListener('resize', onResize); }, { once: true });
+  }
+</script>
+
+<style>
+  .reviews { position: relative; z-index: 4; overflow: clip; background: var(--color-canvas); }
+  .reviews-inner { width: min(100%, var(--container-lg)); margin-inline: auto; padding: var(--section-space-lg) var(--gutter); }
+  .review-slider { --card-width: 26rem; --card-height: 35rem; position: relative; height: var(--card-height); cursor: grab; touch-action: pan-y; }
+  .review-slider[data-drag-status='grabbing'] { cursor: grabbing; }
+  .review-dragger { position: absolute; z-index: 999; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; }
+  .review-list { position: relative; width: 100%; height: 100%; }
+  .review-card { position: absolute; left: 50%; width: var(--card-width); height: var(--card-height); margin-left: calc(var(--card-width) / -2); overflow: hidden; border-radius: 1rem; background: var(--color-canvas); will-change: transform, opacity; }
+  .review-card.is-text { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 1.5rem; color: var(--color-ink); background: var(--color-accent-orange); }
+  .review-card.is-purple { background: var(--color-accent-lilac); }
+  .review-card.is-blue { background: var(--color-accent-cyan); }
+  .review-card.is-yellow { background: var(--color-accent-lime); }
+  blockquote { margin: 0; color: var(--color-ink); font-size: var(--type-body-lg); font-weight: var(--font-weight-medium); line-height: var(--leading-body); }
+  .review-player, .review-video, .review-thumbnail { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .review-player { overflow: hidden; background: #161616; }
+  .review-video, .review-thumbnail { object-fit: cover; }
+  .review-thumbnail { z-index: 3; pointer-events: none; transition: opacity .3s; }
+  .video-scrim { position: absolute; z-index: 4; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent, rgb(0 0 0 / 70%)); transition: opacity .3s; }
+  .client-detail { position: absolute; z-index: 4; bottom: 1.75rem; left: 1.75rem; display: flex; align-items: center; gap: .75rem; transition: opacity .25s, transform .25s; }
+  .is-text .client-detail { right: 1.5rem; bottom: 1.5rem; left: 1.5rem; }
+  .client-image { flex: none; width: 3rem; aspect-ratio: 1; border-radius: 50%; object-fit: cover; }
+  .client-copy { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .client-name { padding: .35rem .55rem; border-radius: .3rem; color: currentColor; background: color-mix(in srgb, currentColor 10%, transparent); font-weight: var(--font-weight-medium); line-height: 1; }
+  .client-role { color: currentColor; font-size: var(--type-caption); font-weight: var(--font-weight-medium); line-height: 1; }
+  .is-video .client-detail { color: var(--color-text); }
+  .video-toggle { position: absolute; z-index: 6; top: 50%; left: 50%; display: grid; width: 4rem; height: 4rem; padding: 0; border: 0; border-radius: 50%; place-items: center; color: white; background: rgb(255 255 255 / 12%); backdrop-filter: blur(15px); cursor: pointer; transform: translate(-50%, -50%); transition: opacity .2s, transform .2s; }
+  .video-toggle:hover { transform: translate(-50%, -50%) scale(1.06); }
+  .video-toggle svg { width: 1.375rem; height: 1.375rem; fill: currentColor; }
+  .icon-pause { display: none; }
+  .video-controls { position: absolute; z-index: 6; right: 1rem; bottom: 1rem; left: 1rem; display: none; align-items: center; gap: 1rem; }
+  .video-time { flex: none; color: var(--color-text); font-size: var(--type-caption); line-height: 1; }
+  .video-progress { position: relative; display: flex; flex: 1; align-items: center; height: 1.25rem; cursor: pointer; }
+  .progress-track, .progress-fill { position: absolute; left: 0; height: .25rem; border-radius: .125rem; pointer-events: none; }
+  .progress-track { right: 0; background: rgb(255 255 255 / 25%); backdrop-filter: blur(5px); }
+  .progress-fill { width: 0; background: var(--color-accent-purple); }
+  .progress-dot { position: absolute; top: 50%; right: 0; width: .625rem; height: .625rem; border-radius: 50%; background: var(--color-accent-purple); box-shadow: 0 0 0 .1875rem rgb(255 255 255 / 15%); transform: translate(50%, -50%); }
+  .review-player.is-playing .review-thumbnail, .review-player.has-played .review-thumbnail { opacity: 0; }
+  .review-player.is-playing .video-scrim { opacity: .5; }
+  .review-player.is-playing .client-detail { opacity: 0; pointer-events: none; transform: translateY(-.375rem); }
+  .review-player.is-playing .video-toggle { opacity: 0; }
+  .review-player.is-playing:hover .video-toggle, .review-player.is-playing .video-toggle:focus-visible { opacity: 1; }
+  .review-player.is-playing .icon-play { display: none; }
+  .review-player.is-playing .icon-pause, .review-player.is-playing .video-controls { display: flex; }
+  .slider-nav { position: absolute; z-index: 1000; top: 0; left: 50%; display: flex; justify-content: space-between; align-items: center; width: var(--card-width); height: var(--card-height); pointer-events: none; transform: translateX(-50%); }
+  .slider-button { display: grid; width: 2.875rem; height: 2.875rem; padding: 0; border: 0; border-radius: .5rem; place-items: center; color: var(--color-text); background: var(--color-accent-purple); cursor: pointer; pointer-events: auto; transition: transform .2s, background-color .2s; }
+  .slider-button:hover { background: #623cbd; }
+  .slider-button:active { scale: .9; }
+  .slider-button.is-prev { transform: translateX(-50%); }
+  .slider-button.is-next { transform: translateX(50%); }
+  .slider-button svg { width: 1.125rem; height: 1.125rem; }
+  .reviews-title {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: var(--type-h5);
+  line-height: 1.3;
+  user-select: none;
+  max-width: 20ch;
+  margin-inline: auto;
+}
+
+  @media (max-width: 991px) {
+    .review-slider { --card-width: min(24rem, 74vw); --card-height: calc(var(--card-width) * 1.3462); }
+  }
+
+  @media (max-width: 767px) {
+    .review-slider { --card-width: 78vw; --card-height: calc(var(--card-width) * 1.3462); }
+    .review-card.is-text { padding: 1rem; }
+    .client-detail, .is-text .client-detail { right: 1rem; bottom: 1rem; left: 1rem; gap: .5rem; }
+    .client-image { width: 2.5rem; }
+    .client-copy { gap: .3rem; }
+    .slider-button { width: 2.25rem; height: 2.25rem; border-radius: .4rem; }
+    .slider-button.is-prev { transform: translateX(-50%); }
+    .slider-button.is-next { transform: translateX(50%); }
+    .slider-button svg { width: 1rem; height: 1rem; }
+    .reviews-title { margin-top: 1.5rem; }
+  }
+</style>
