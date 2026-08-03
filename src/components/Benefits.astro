@@ -840,14 +840,24 @@
 }
 
 .benefits_card {
-  grid-column-gap: 2.5rem;
-  grid-row-gap: 2.5rem;
+  --benefits-card-space-desktop: 2;
+  --benefits-card-space-mobile: 1;
+  --benefits-card-space: clamp(
+    var(--benefits-card-space-mobile) * 1rem,
+    calc(
+      (var(--benefits-card-space-mobile) - ((var(--benefits-card-space-desktop) - var(--benefits-card-space-mobile)) / (var(--fluid-max) - var(--fluid-min)) * var(--fluid-min))) * 1rem +
+      ((var(--benefits-card-space-desktop) - var(--benefits-card-space-mobile)) / (var(--fluid-max) - var(--fluid-min))) * 100vw
+    ),
+    var(--benefits-card-space-desktop) * 1rem
+  );
+  grid-column-gap: var(--benefits-card-space);
+  grid-row-gap: var(--benefits-card-space);
   background-color: #ffffff05;
   flex-flow: column;
-  padding-top: 2rem;
-  padding-left: 2rem;
+  padding-top: var(--benefits-card-space);
+  padding-left: var(--benefits-card-space);
   display: flex;
-  overflow: clip;
+  overflow: hidden !important;
 }
 
 .benefits_graphic_wrap {
@@ -1403,6 +1413,10 @@
   display: grid;
 }
 
+.benefits-switcher > .benefits_card {
+  padding-top: calc(var(--benefits-card-space) + .5rem);
+}
+
 .benefits_card.is-speed-card {
   grid-column: 3;
   grid-row: 1;
@@ -1436,6 +1450,11 @@
 
 .benefits_card.is-component-setup .benefits_graphic_wrap,
 .benefits_card.is-cms .benefits_graphic_wrap {
+  overflow: visible;
+}
+
+.benefits_card.is-component-setup,
+.benefits_card.is-cms {
   overflow: visible;
 }
 
@@ -1535,7 +1554,7 @@
 .benefits_graphic_wrap .text-size-tiny,
 .benefits_graphic_wrap .text-size-xtiny,
 .benefits_graphic_wrap .contol-text { line-height: 1 !important; }
-@media(max-width:991px){.benefits-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.benefits_card.is-speed-card{grid-column:1;grid-row:2}}@media(max-width:767px){.benefits-grid{grid-template-columns:1fr}.benefits_card{max-width:30rem}.benefits-switcher{grid-column:1;grid-row:auto}.benefits_card.is-speed-card{grid-column:1;grid-row:auto}}@media(max-width:479px){.benefits_card{gap:2rem;padding-top:1rem;padding-left:1rem}.benefit-copy{padding-right:1rem}}
+@media(max-width:991px){.benefits-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.benefits_card.is-speed-card{grid-column:1;grid-row:2}}@media(max-width:767px){.benefits-grid{grid-template-columns:1fr}.benefits_card{max-width:30rem}.benefits-switcher{grid-column:1;grid-row:auto;margin-top:1.25rem}.benefits_card.is-speed-card{grid-column:1;grid-row:auto}}@media(max-width:479px){.benefit-copy{padding-right:1rem}}
 </style>
 <script>
   import gsap from 'gsap';

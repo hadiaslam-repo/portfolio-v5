@@ -1,0 +1,295 @@
+<section id="portfolio" class="portfolio" data-color-mode="light" aria-labelledby="portfolio-title">
+  <div class="portfolio__component">
+    <div class="portfolio__tabs-wrap">
+      <div class="portfolio__tabs" role="tablist" aria-label="Portfolio view">
+        <span class="portfolio__tab-highlight" aria-hidden="true"></span>
+        <button id="portfolio-live-tab" class="portfolio__tab is-active" type="button" role="tab" aria-selected="true" aria-controls="portfolio-live-panel" data-portfolio-tab="live">Live</button>
+        <button id="portfolio-gallery-tab" class="portfolio__tab" type="button" role="tab" aria-selected="false" aria-controls="portfolio-gallery-panel" tabindex="-1" data-portfolio-tab="gallery">Shots</button>
+      </div>
+    </div>
+
+    <div id="portfolio-live-panel" class="portfolio__panel portfolio__panel--live" role="tabpanel" aria-labelledby="portfolio-live-tab" data-portfolio-panel="live">
+      <div class="portfolio__container">
+        <h2 id="portfolio-title">Selected work</h2>
+        <div class="portfolio__live-list" aria-label="Live website placeholders">
+          <div class="portfolio__live-item"></div>
+          <div class="portfolio__live-item portfolio__live-item--second"></div>
+          <div class="portfolio__live-item portfolio__live-item--third"></div>
+          <div class="portfolio__live-item portfolio__live-item--fourth"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="portfolio-gallery-panel" class="portfolio__panel portfolio__panel--gallery" role="tabpanel" aria-labelledby="portfolio-gallery-tab" aria-hidden="true" data-portfolio-panel="gallery">
+      <div class="portfolio__gallery-viewport">
+        <div class="portfolio__gallery-canvas"></div>
+        <div class="portfolio__gallery-tip" aria-hidden="true">Drag to Explore</div>
+        <div class="portfolio__progress-wrap" aria-hidden="true">
+          <div class="portfolio__progress-track"><div class="portfolio__progress-bar"></div></div>
+        </div>
+      </div>
+      <div class="portfolio__gallery-source" aria-hidden="true">
+        <div data-title="Nightshade"><img src="/images/mockups.avif" alt="" /></div>
+        <div data-title="Nightshade"><img src="/images/mockups-3.avif" alt="" /></div>
+        <div data-title="Nightshade"><img src="/images/mockups-2.avif" alt="" /></div>
+        <div data-title="Nightshade"><img src="/images/mockups-1.avif" alt="" /></div>
+      </div>
+    </div>
+
+    <div class="portfolio__curtain" aria-hidden="true"></div>
+  </div>
+</section>
+
+<style>
+  .portfolio {
+    position: relative;
+    z-index: 3;
+    color: var(--portfolio-ink);
+    background: var(--portfolio-bg);
+  }
+
+  .portfolio[data-color-mode='light'] {
+    --portfolio-bg: var(--color-surface);
+    --portfolio-ink: var(--color-ink);
+    --portfolio-text: var(--color-ink-muted);
+    --portfolio-placeholder: rgb(39 39 39 / 50%);
+  }
+
+  .portfolio[data-color-mode='dark'] {
+    --portfolio-bg: var(--color-canvas);
+    --portfolio-ink: var(--color-text);
+    --portfolio-text: var(--color-text-muted);
+    --portfolio-placeholder: rgb(255 255 255 / 18%);
+  }
+
+  .portfolio__component { position: relative; }
+  .portfolio__container { display: flex; flex-direction: column; gap: 3rem; width: min(100%, var(--container-lg)); margin-inline: auto; padding: 0 var(--gutter) var(--section-space-lg); }
+  .portfolio__container h2 { color: var(--portfolio-ink); font-size: var(--type-h2); font-weight: var(--font-weight-medium); line-height: var(--leading-tight); }
+
+  .portfolio__tabs-wrap {
+    z-index: 12;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    position: sticky;
+    top: 0;
+  }
+
+  .portfolio__tabs {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    width: fit-content;
+    padding: .25rem;
+    border-radius: .5rem;
+    background: color-mix(in srgb, var(--portfolio-bg) 20%, transparent);
+    backdrop-filter: blur(20px);
+    pointer-events: auto;
+  }
+
+  .portfolio__tab {
+    position: relative;
+    z-index: 1;
+    border: 0;
+    border-radius: .38rem;
+    padding: .5rem 1.25rem;
+    color: var(--portfolio-ink);
+    background: transparent;
+    font: inherit;
+    font-size: var(--type-small);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-tight);
+    cursor: pointer;
+    transition: color .7s cubic-bezier(1, 0, 0, 1);
+  }
+
+  .portfolio__tab.is-active { color: var(--portfolio-bg); }
+  .portfolio__tab:focus-visible { outline: 2px solid var(--portfolio-ink); outline-offset: 2px; }
+  .portfolio__tab-highlight { position: absolute; z-index: 0; inset: 0 auto auto 0; border-radius: .25rem; background: var(--portfolio-ink); }
+  .portfolio__panel { position: relative; }
+  .portfolio__panel--live { margin-top: 0; }
+
+  .portfolio__live-list { display: flex; flex-direction: column; gap: 2rem; }
+  .portfolio__live-item { width: 66.3235%; aspect-ratio: 9.02 / 5.4; background: var(--portfolio-placeholder); }
+  .portfolio__live-item--second { align-self: flex-end; width: 60%; aspect-ratio: 3 / 2.25; }
+  .portfolio__live-item--third { width: 53.2353%; aspect-ratio: 7.24 / 4.86; }
+  .portfolio__live-item--fourth { align-self: flex-end; width: 70%; aspect-ratio: 8.21 / 4.77; }
+
+  .portfolio__panel--gallery { display: none; height: 200vh; margin-top: -10rem; }
+  .portfolio__gallery-viewport { position: sticky; top: 0; width: 100%; height: 100vh; overflow: clip; cursor: grab; touch-action: none; }
+  .portfolio__gallery-viewport.is-dragging { cursor: grabbing; }
+  .portfolio__gallery-canvas { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: center; }
+  .portfolio__gallery-source { display: none; }
+
+  :global(.portfolio__gallery-tile) { position: absolute; width: 30%; aspect-ratio: 4.43 / 3.25; overflow: hidden; border-radius: .25rem; background: #1a1a1a; }
+  :global(.portfolio__gallery-tile img) { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+  :global(.portfolio__gallery-label) { position: absolute; left: 1rem; bottom: .875rem; color: #fff; font-size: var(--type-caption); line-height: 1; letter-spacing: .05em; text-transform: uppercase; text-shadow: 0 .0625rem .375rem rgb(0 0 0 / 60%); pointer-events: none; }
+
+  .portfolio__gallery-tip { position: absolute; padding: .75rem 1rem; border-radius: .5rem; color: var(--portfolio-bg); background: var(--portfolio-ink); font-size: var(--type-small); font-weight: var(--font-weight-medium); line-height: 1; opacity: 0; scale: 0; pointer-events: none; will-change: transform, opacity, scale; }
+  .portfolio__progress-wrap { position: absolute; bottom: 3rem; left: 50%; padding: 1rem; border-radius: .5rem; background: color-mix(in srgb, var(--portfolio-bg) 20%, transparent); backdrop-filter: blur(20px); transform: translateX(-50%); }
+  .portfolio__progress-track { width: 8rem; height: .25rem; overflow: hidden; border-radius: 100vw; background: color-mix(in srgb, var(--portfolio-ink) 20%, transparent); }
+  .portfolio__progress-bar { width: 0%; height: 100%; border-radius: inherit; background: var(--portfolio-ink); }
+  .portfolio__curtain { position: absolute; z-index: 10; inset: 0; background: var(--portfolio-bg); pointer-events: none; transform: scaleY(0); transform-origin: bottom; }
+
+  @media (max-width: 767px) {
+    .portfolio__live-item,
+    .portfolio__live-item--second,
+    .portfolio__live-item--third,
+    .portfolio__live-item--fourth { width: 100%; }
+    :global(.portfolio__gallery-tile) { width: 60%; }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { Draggable } from 'gsap/Draggable';
+  import { InertiaPlugin } from 'gsap/InertiaPlugin';
+
+  gsap.registerPlugin(Draggable, InertiaPlugin);
+
+  const root = document.querySelector<HTMLElement>('.portfolio');
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-portfolio-tab]'));
+    const highlight = root.querySelector<HTMLElement>('.portfolio__tab-highlight');
+    const curtain = root.querySelector<HTMLElement>('.portfolio__curtain');
+    const galleryPanel = root.querySelector<HTMLElement>('[data-portfolio-panel="gallery"]');
+    const progressBar = root.querySelector<HTMLElement>('.portfolio__progress-bar');
+    let activeView = 'live';
+    let transitioning = false;
+    let galleryInitialized = false;
+
+    function moveHighlight(tab: HTMLButtonElement, animate = true) {
+      if (!highlight) return;
+      const values = { x: tab.offsetLeft, y: tab.offsetTop, width: tab.offsetWidth, height: tab.offsetHeight };
+      animate ? gsap.to(highlight, { ...values, duration: .7, ease: 'expo.inOut' }) : gsap.set(highlight, values);
+    }
+
+    function updateProgress() {
+      if (!galleryPanel || !progressBar || galleryPanel.style.display === 'none') return;
+      const distance = galleryPanel.offsetHeight - innerHeight;
+      const progress = distance > 0 ? gsap.utils.clamp(0, 1, -galleryPanel.getBoundingClientRect().top / distance) : 0;
+      progressBar.style.width = `${progress * 100}%`;
+    }
+
+    function initGallery() {
+      if (galleryInitialized) return;
+      const viewport = root.querySelector<HTMLElement>('.portfolio__gallery-viewport');
+      const canvas = root.querySelector<HTMLElement>('.portfolio__gallery-canvas');
+      const sources = Array.from(root.querySelectorAll<HTMLElement>('.portfolio__gallery-source > div'));
+      const tip = root.querySelector<HTMLElement>('.portfolio__gallery-tip');
+      if (!viewport || !canvas || !sources.length) return;
+      galleryInitialized = true;
+
+      const TILE_RATIO = .3;
+      const HEIGHT_RATIO = 3.25 / 4.43;
+      const GAP_RATIO = .035;
+      let columns = 0;
+      let rows = 0;
+      const tiles: Array<{ element: HTMLElement; column: number; row: number }> = [];
+      const drag = { x: 0, y: 0 };
+      let dragged = false;
+      let dragging = false;
+
+      const metrics = () => {
+        const tileWidth = canvas.clientWidth * (innerWidth <= 767 ? .6 : TILE_RATIO);
+        const tileHeight = tileWidth * HEIGHT_RATIO;
+        const gap = canvas.clientWidth * GAP_RATIO;
+        return { tileWidth, tileHeight, cellWidth: tileWidth + gap, cellHeight: tileHeight + gap };
+      };
+
+      const initial = metrics();
+      columns = Math.ceil(viewport.clientWidth / initial.cellWidth) + 3;
+      rows = Math.ceil(viewport.clientHeight / initial.cellHeight) + 3;
+      for (let row = 0, index = 0; row < rows; row++) {
+        for (let column = 0; column < columns; column++, index++) {
+          const source = sources[index % sources.length];
+          const image = source.querySelector<HTMLImageElement>('img');
+          const tile = document.createElement('div');
+          tile.className = 'portfolio__gallery-tile';
+          tile.innerHTML = `<img src="${image?.src ?? ''}" alt="" draggable="false"><div class="portfolio__gallery-label">${source.dataset.title ?? ''}</div>`;
+          canvas.append(tile);
+          tiles.push({ element: tile, column, row });
+        }
+      }
+
+      function render() {
+        const { cellWidth, cellHeight } = metrics();
+        const wrapX = gsap.utils.wrap(-cellWidth * 1.5, columns * cellWidth - cellWidth * 1.5);
+        const wrapY = gsap.utils.wrap(-cellHeight * 1.5, rows * cellHeight - cellHeight * 1.5);
+        tiles.forEach((tile) => gsap.set(tile.element, { x: wrapX(tile.column * cellWidth + drag.x), y: wrapY(tile.row * cellHeight + drag.y) }));
+      }
+
+      const proxy = document.createElement('div');
+      Draggable.create(proxy, {
+        type: 'x,y', inertia: true, trigger: viewport,
+        onPress() { dragging = true; viewport.classList.add('is-dragging'); gsap.to(canvas, { scale: 1.06, duration: .5, ease: 'power3.out' }); },
+        onDragStart() { if (!dragged && tip) { dragged = true; gsap.to(tip, { opacity: 0, scale: 0, duration: .5 }); } },
+        onDrag() { drag.x = this.x; drag.y = this.y; render(); },
+        onThrowUpdate() { drag.x = this.x; drag.y = this.y; render(); },
+        onRelease() { dragging = false; viewport.classList.remove('is-dragging'); gsap.to(canvas, { scale: 1, duration: .6, ease: 'power3.out' }); },
+      });
+
+      const hoverX = gsap.quickTo(canvas, 'x', { duration: .6, ease: 'power3.out' });
+      const hoverY = gsap.quickTo(canvas, 'y', { duration: .6, ease: 'power3.out' });
+      viewport.addEventListener('pointermove', (event) => {
+        const rect = viewport.getBoundingClientRect();
+        if (!dragging) { hoverX(-(((event.clientX - rect.left) / rect.width - .5) * 2) * 24); hoverY(-(((event.clientY - rect.top) / rect.height - .5) * 2) * 24); }
+        if (tip) gsap.to(tip, { x: event.clientX - rect.left + 14, y: event.clientY - rect.top + 14, duration: .4, ease: 'power3.out' });
+      });
+      viewport.addEventListener('pointerenter', () => { if (!dragged && tip) gsap.to(tip, { opacity: 1, scale: 1, duration: .4 }); });
+      viewport.addEventListener('pointerleave', () => { hoverX(0); hoverY(0); if (tip) gsap.to(tip, { opacity: 0, scale: 0, duration: .3 }); });
+      addEventListener('resize', render);
+      render();
+    }
+
+    function selectView(next: string) {
+      if (next === activeView || transitioning) return;
+      const currentTab = tabs.find((tab) => tab.dataset.portfolioTab === activeView);
+      const nextTab = tabs.find((tab) => tab.dataset.portfolioTab === next);
+      const currentPanel = root.querySelector<HTMLElement>(`[data-portfolio-panel="${activeView}"]`);
+      const nextPanel = root.querySelector<HTMLElement>(`[data-portfolio-panel="${next}"]`);
+      if (!nextTab || !currentPanel || !nextPanel) return;
+      transitioning = true;
+      tabs.forEach((tab) => { const selected = tab === nextTab; tab.classList.toggle('is-active', selected); tab.setAttribute('aria-selected', String(selected)); tab.tabIndex = selected ? 0 : -1; });
+      moveHighlight(nextTab);
+      const sectionTop = window.scrollY + root.getBoundingClientRect().top;
+      const scrollPosition = { value: window.scrollY };
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      const timeline = gsap.timeline({
+        onComplete: () => {
+          window.scrollTo(0, sectionTop);
+          document.documentElement.style.scrollBehavior = previousScrollBehavior;
+          activeView = next;
+          transitioning = false;
+        },
+      });
+      timeline.to(currentPanel.firstElementChild, { opacity: 0, scale: .96, duration: .45, ease: 'power2.inOut' })
+        .to(curtain, { scaleY: 1, duration: .55, ease: 'power2.inOut' }, .05)
+        .add(() => { document.documentElement.style.scrollBehavior = 'auto'; })
+        .to(scrollPosition, {
+          value: sectionTop,
+          duration: .7,
+          ease: 'power3.inOut',
+          onUpdate: () => window.scrollTo(0, scrollPosition.value),
+        })
+        .add(() => {
+          currentPanel.style.display = 'none'; currentPanel.setAttribute('aria-hidden', 'true');
+          nextPanel.style.display = 'block'; nextPanel.setAttribute('aria-hidden', 'false');
+          gsap.set(nextPanel.firstElementChild, { opacity: 0, scale: 1.05 });
+          window.scrollTo(0, sectionTop);
+          if (next === 'gallery') { initGallery(); requestAnimationFrame(updateProgress); }
+        })
+        .to(curtain, { scaleY: 0, transformOrigin: 'top', duration: .6, ease: 'power2.inOut' }, '+=.05')
+        .to(nextPanel.firstElementChild, { opacity: 1, scale: 1, duration: .6, ease: 'power2.inOut' }, '-=.25')
+        .set(curtain, { transformOrigin: 'bottom' });
+    }
+
+    tabs.forEach((tab) => tab.addEventListener('click', () => selectView(tab.dataset.portfolioTab ?? 'live')));
+    const initialTab = tabs.find((tab) => tab.classList.contains('is-active'));
+    if (initialTab) requestAnimationFrame(() => moveHighlight(initialTab, false));
+    addEventListener('scroll', updateProgress, { passive: true });
+    addEventListener('resize', () => { const active = tabs.find((tab) => tab.classList.contains('is-active')); if (active) moveHighlight(active, false); updateProgress(); });
+  }
+</script>
